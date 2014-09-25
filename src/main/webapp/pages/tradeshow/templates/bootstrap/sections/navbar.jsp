@@ -38,14 +38,15 @@ response.setDateHeader ("Expires", -1);
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibitors  <span class="caret"></span></a>
          <ul class="dropdown-menu" role="menu">
             <li><a href="<c:url value="/exhibitors"/>">List All </a></li>
-            <li><a href="<c:url value="/exhibitors/import"/>">Import </a></li>
-             <li><a href="<c:url value="/exhibitors/export"/>">Export </a></li>
+            <li><a href="<c:url value="/import"/>">Import </a></li>
+             <li><a href="<c:url value="/export"/>">Export </a></li>
          </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form  class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input id="search" type="text" class="form-control" placeholder="Search" autocomplete="off" >
+          <ol class="mp_list"> </ol>
         </div>
             <div class="form-group">
         <button type="submit" class="btn btn-default">Search

@@ -36,37 +36,71 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10000000"/>
+	</beans:bean>
+	
 	<context:component-scan base-package="com.tocgroup.tradeshow" />
 	
-	 <beans:bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-      <beans:property name="dataSource" ref="dataSource" />
-      <beans:property name="packagesToScan" value="com.tocgroup.tradeshow.model" />
-      <beans:property name="jpaVendorAdapter">
-         <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-      </beans:property>
-      <beans:property name="jpaProperties">
-         <beans:props>
-            <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>
-            <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</beans:prop>
-         </beans:props>
-      </beans:property>
-   </beans:bean>
+<!-- 	 <beans:bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> -->
+<!--       <beans:property name="dataSource" ref="dataSource" /> -->
+<!--       <beans:property name="packagesToScan" value="com.tocgroup.tradeshow.model" /> -->
+<!--       <beans:property name="jpaVendorAdapter"> -->
+<!--          <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> -->
+<!--       </beans:property> -->
+<!--       <beans:property name="jpaProperties"> -->
+<!--          <beans:props> -->
+<!--             <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop> -->
+<!--             <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</beans:prop> -->
+<!--          </beans:props> -->
+<!--       </beans:property> -->
+<!--    </beans:bean> -->
  
-   <beans:bean  id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <beans:property name="url" value="jdbc:mysql://localhost:3306/tradeshow" />
-      <beans:property name="username" value="root" />
-      <beans:property name="password" value="root" />
-  </beans:bean>
+<!--    <beans:bean  id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!--       <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+<!--       <beans:property name="url" value="jdbc:mysql://localhost:3306/tradeshow" /> -->
+<!--       <beans:property name="username" value="root" /> -->
+<!--       <beans:property name="password" value="root" /> -->
+<!--   </beans:bean> -->
  
-  <beans:bean  id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-      <beans:property name="entityManagerFactory" ref="myEmf" />
-      <beans:property name="persistenceUnitName" value="tradeshow-unit"> </beans:property>
-  </beans:bean>
+<!--   <beans:bean  id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"> -->
+<!--       <beans:property name="entityManagerFactory" ref="myEmf" /> -->
+<!--       <beans:property name="persistenceUnitName" value="tradeshow-unit"> </beans:property> -->
+<!--   </beans:bean> -->
 
-   <tx:annotation-driven transaction-manager="transactionManager" />
+<!--    <tx:annotation-driven transaction-manager="transactionManager" /> -->
  
-   <beans:bean id="persistenceExceptionTranslationPostProcessor"
-      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+<!--    <beans:bean id="persistenceExceptionTranslationPostProcessor" -->
+<!--       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
+
+
+ <context:property-placeholder location="classpath:persistence-mysql.properties" />
+
+
+ <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="packagesToScan" value="com.tocgroup.tradeshow.model" />
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+                 <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.show_sql}</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+        <beans:property name="url" value="${jdbc.url}" />
+        <beans:property name="username" value="${jdbc.user}" />
+        <beans:property name="password" value="${jdbc.pass}" />
+    </beans:bean>
+
+    <beans:bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <tx:annotation-driven transaction-manager="txManager" />
+    <beans:bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	
 </beans:beans>

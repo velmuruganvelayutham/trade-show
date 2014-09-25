@@ -33,9 +33,10 @@ public abstract class GenericJpaDaoImpl<T extends Serializable> implements
 		entityManager.persist(entity);
 	}
 
-	public void update(T entity) {
-		entityManager.merge(entity);
+	public T update(T entity) {
 
+		T merge = entityManager.merge(entity);
+		return merge;
 	}
 
 	public void delete(T entity) {

@@ -2,16 +2,17 @@ package com.tocgroup.tradeshow.service.impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.tocgroup.tradeshow.dao.Page;
 import com.tocgroup.tradeshow.dao.VendorDao;
 import com.tocgroup.tradeshow.model.Vendor;
 import com.tocgroup.tradeshow.service.VendorService;
 
 @Service
+@Transactional
 public class VendorServiceImpl implements VendorService {
 
 	@Autowired
@@ -30,7 +31,6 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	@Transactional
 	public void create(Vendor vendor) {
 		vendorDao.save(vendor);
 	}
@@ -38,5 +38,17 @@ public class VendorServiceImpl implements VendorService {
 	@Override
 	public void delete(Vendor vendor) {
 		vendorDao.delete(vendor);
+	}
+
+	@Override
+	public List<Vendor> findAll(Page page) {
+		return vendorDao.findAll(page);
+
+	}
+
+	@Override
+	public Long count() {
+
+		return vendorDao.count();
 	}
 }

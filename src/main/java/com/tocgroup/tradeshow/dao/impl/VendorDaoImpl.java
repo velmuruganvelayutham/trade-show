@@ -6,7 +6,7 @@ import com.tocgroup.tradeshow.dao.VendorDao;
 import com.tocgroup.tradeshow.model.Vendor;
 
 @Repository
-public class VendorDaoImpl extends GenericJpaDaoImpl<Vendor> implements
+public class VendorDaoImpl extends HibernateGenericDaoImpl<Vendor> implements
 		VendorDao {
 
 	public VendorDaoImpl() {

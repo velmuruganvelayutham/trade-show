@@ -153,4 +153,14 @@ public class Vendor implements Serializable {
 		this.categories = categories;
 	}
 
+	@Override
+	public String toString() {
+		return "Vendor [vendor_id=" + vendor_id + ", showName=" + showName
+				+ ", showStartDate=" + showStartDate + ", showEndDate="
+				+ showEndDate + ", vendorName=" + vendorName + ", boothNo="
+				+ boothNo + ", address=" + address + ", phone=" + phone
+				+ ", website=" + website + ", email=" + email
+				+ ", description=" + description;
+	}
+
 }

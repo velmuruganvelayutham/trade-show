@@ -11,8 +11,12 @@ public interface GenericDao<T extends Serializable> {
 
 	public void save(T entity);
 
-	public void update(T entity);
+	public T update(T entity);
+
+	public List<T> findAll(Page page);
 
 	public void delete(T entity);
+
+	public Long count();
 
 }

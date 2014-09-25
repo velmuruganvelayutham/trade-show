@@ -6,7 +6,8 @@ import com.tocgroup.tradeshow.dao.UserDao;
 import com.tocgroup.tradeshow.model.User;
 
 @Repository
-public class UserDaoImpl extends GenericJpaDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends HibernateGenericDaoImpl<User> implements
+		UserDao {
 	public UserDaoImpl() {
 		setClazz(User.class);
 	}
