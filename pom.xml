@@ -192,6 +192,12 @@
 			<version>2.3</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>com.tocgroup</groupId>
+		    <artifactId>scraper</artifactId>
+		    <version>1.7.4-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -239,4 +245,14 @@
             </plugin>
         </plugins>
     </build>
+    
+    <repositories>
+    <!--other repositories if any-->
+        <repository>
+        <id>project.local</id>
+        <name>project</name>
+        <url>file:${project.basedir}/repo</url>
+    </repository>
+</repositories>
+    
 </project>
