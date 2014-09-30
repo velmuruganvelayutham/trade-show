@@ -13,21 +13,22 @@ response.setDateHeader ("Expires", -1);
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <div class="container"> 
-
-<form id="importCSV" role="form" method="post" action="import/csv" enctype=”multipart/form-data >
-<div class="form-group"> 
-<label for="csvInputFile">CSV File</label>
-    <input type="file" id="csvInputFile" name="file">
-    <p class="help-block"> Upload the CSV file from your computer.</p>
-</div>
-<div  class="form-group" id="progress" style="display: none"> 
-<img alt="progress image " src="<c:url value="/resources/image/progress.gif"></c:url>">
-</div>
-<div  class="form-group" id="message"> </div>
- <button type="submit" class="btn btn-default">Submit</button>
-
-</form>
-
+<c:if test="${message == 'import'}">
+	<form id="importCSV" role="form" method="post" action="import/csv" enctype=”multipart/form-data >
+		<div class="form-group"> 
+		<label for="csvInputFile">CSV File</label>
+		    <input type="file" id="csvInputFile" name="file">
+		    <p class="help-block"> Upload the CSV file from your computer.</p>
+		</div>
+		<div  class="form-group" id="progress" style="display: none"> 
+		<img alt="progress image " src="<c:url value="/resources/image/progress.gif"></c:url>">
+		</div>
+		<div  class="form-group" id="message"> </div>
+		 <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+	
+</c:if>
+<c:if test="${message == 'list'}">
 <div class="container">
 <div class="row">
 <div class="col-xs-2">
@@ -61,10 +62,10 @@ response.setDateHeader ("Expires", -1);
           <td><c:out value="${vendor.address}"/></td>
           <td><c:out value="${vendor.phone}"/></td>
           <td><c:out value="${vendor.website}"/></td>
-          <td><c:out value="${vendor.phone}"/></td>
+          <td><c:out value="${vendor.fax}"/></td>
           <td><c:out value="${vendor.email}"/></td>
-          <td><c:out value="${vendor.website}"/></td>
-          <td><c:out value="${vendor.description}"/></td>
+          <td><c:out value=""/></td>
+          <td><c:out value=""/></td>
         </tr>
       </c:forEach>
       </tbody>
@@ -111,9 +112,12 @@ response.setDateHeader ("Expires", -1);
         </c:choose>
     </ul>
 </div>
-	</div> <!-- Pagination container ends here,. -->
+</div> <!-- Pagination container ends here,. -->
+</c:if>
+<c:if test="${message == 'export'}">
+<c:out value="${requestScope.message} "></c:out>
+</c:if>
 </div> 
 
   
 
-<c:out value="${requestScope.message} "></c:out>

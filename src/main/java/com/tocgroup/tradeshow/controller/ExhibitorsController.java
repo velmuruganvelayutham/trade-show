@@ -43,7 +43,7 @@ public class ExhibitorsController {
 	@RequestMapping(value = "/exhibitors", method = RequestMethod.GET)
 	public String list(Locale locale, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int pageNo,
-			@RequestParam(value = "size", defaultValue = "10") int size) {
+			@RequestParam(value = "size", defaultValue = "8") int size) {
 
 		logger.info("Exibitors list is called ", locale);
 		Page page = new Page(pageNo, size);
@@ -61,6 +61,7 @@ public class ExhibitorsController {
 		model.addAttribute("beginIndex", begin);
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
+		model.addAttribute("message", "list");
 		return "exhibitors.";
 	}
 
@@ -68,14 +69,15 @@ public class ExhibitorsController {
 	public String importCSV(Locale locale, Model model) {
 
 		logger.info("ImportCSV  is called ", locale);
-		model.addAttribute("message", "Exhibitors list are coming soon !.");
+		model.addAttribute("message", "import");
 		return "exhibitors.";
 
 	}
 
 	@RequestMapping(value = "/import/csv", method = RequestMethod.POST)
 	public String importCSVPost(Locale locale,
-			@RequestParam("file") MultipartFile file) throws IOException {
+			@RequestParam("file") MultipartFile file, Model model)
+			throws IOException {
 
 		logger.info("-- CSV imporing is started --   " + file.getName());
 		HeaderColumnNameTranslateMappingStrategy<Vendor> beanStrategy = new HeaderColumnNameTranslateMappingStrategy<Vendor>();
@@ -102,15 +104,15 @@ public class ExhibitorsController {
 			vendorService.create(vendor);
 		}
 		logger.info("-- CSV imported completed --   " + file.getName());
+		model.addAttribute("message", "import");
 		return "exhibitors.";
-
 	}
 
 	@RequestMapping(value = "/export", method = RequestMethod.GET)
 	public String exportCSV(Locale locale, Model model) {
 
 		logger.info("Export CSV  is called ", locale);
-		model.addAttribute("message", "Exhibitors list are coming soon !.");
+		model.addAttribute("message", "export");
 		return "exhibitors.";
 
 	}

@@ -31,6 +31,9 @@ response.setDateHeader ("Expires", -1);
     			<meta name="viewport" content="width=device-width, initial-scale=1.0">
     			<meta name="description" content="<c:out value="${requestScope.PAGE_INFORMATION.pageDescription}" />">
     			<meta name="author" content="<c:out value="${requestScope.MERCHANT_STORE.storename}"/>">
+    			 
+			    <!-- Favicon icon -->
+			    <link href="<c:url value="/resources/image/blue-butterfly-152-181696.png" />" rel="shortcut icon">
 
  	</head>
  	<body>

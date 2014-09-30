@@ -22,7 +22,7 @@ public class Vendor implements Serializable {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer vendor_id;
+	private Long vendor_id;
 	@Column(nullable = false)
 	private String showName;
 	@Column
@@ -41,19 +41,29 @@ public class Vendor implements Serializable {
 	private String website;
 	@Column
 	private String email;
+	@Column
+	private String fax;
 	@Column(length = 10000)
 	private String description;
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendor")
 	private List<Product> products;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendor")
 	private List<Category> categories;
 
-	public Integer getVendor_id() {
+	public Long getVendor_id() {
 		return vendor_id;
 	}
 
-	public void setVendor_id(Integer vendor_id) {
+	public void setVendor_id(Long vendor_id) {
 		this.vendor_id = vendor_id;
 	}
 

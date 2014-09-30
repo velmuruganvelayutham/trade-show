@@ -61,25 +61,108 @@
              });
          });
             
-            $('#search').marcoPolo({
-            	  url: getContextPath()+ "/search",
-            	  minChars: 3,
-            	  required: true,
-            	  formatItem: function (data, $item) {
-            	    return data.first_name + ' ' + data.last_name;
-            	  },
-            	  onSelect: function (data, $item) {
+//            $('#search').marcoPolo({
+//            	  url: getContextPath()+ "/search",
+//            	  minChars: 3,
+//            	  required: true,
+//            	  formatItem: function (data, $item) {
+//            	    return data.first_name + ' ' + data.last_name;
+//            	  },
+//            	  onSelect: function (data, $item) {
 //            	    window.location = data.profile_url;
-            		  alert(data.profile_url);
-            	  },
-            	  formatData:function (data){
-            		  return data.first_name + ' ' + data.last_name;
-            	  }
-            	});
+//            		  alert(data.profile_url);
+//            	  },
+//            	  formatData:function (data){
+//            		  return data.first_name + ' ' + data.last_name;
+//            	  }
+//            	});
             
             
+
+            
+//            $('#search').autocomplete({
+//                serviceUrl: getContextPath()+ "/search",
+//                paramName:'q',
+//                dataType:'json',
+//                minChars:3,
+//                onSelect: function (suggestion) {
+//                    alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+//                },
+//                onSearchComplete: function (query, suggestions) {
+//                	
+//                	console.log(suggestions);
+//                	
+//                }
+//            });
+          
+            
+            $('#newURLSave').click(function(){
+             	var text= $('#newURLText').val();
+             	$.ajax({
+             		  type: "POST",
+             		  url:  getContextPath()+ "/settings/save",
+             		  data: { "url": text}
+             		})
+             		  .done(function( msg ) {
+             			location.reload();
+             		    alert(msg );
+             		  }).fail(function( msg ) {
+             		    alert(msg );
+             		  });
+
+             	console.log('newurl save is clicked !'+ text);
+             	
+             });
+            
+            
+            var bestPictures = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('first_name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: getContextPath()+'/search?q=%QUERY'
+            });
+
+            bestPictures.initialize();
+            var compiledTemplate = Hogan.compile('<p  class="repo-language" ><strong>{{first_name}}</strong></p>');
+            $('#bloodhound .typeahead').typeahead(null, {
+                name: 'best-pictures',
+                displayKey: 'first_name',
+                source: bestPictures.ttAdapter(),
+                templates: {
+                    empty: [
+                      '<div class="empty-message">',
+                      'unable to find any results !',
+                      '</div>'
+                    ].join('\n'),
+                    suggestion: compiledTemplate.render.bind(compiledTemplate)
+                  }
+               
+            });
        }); 
  
+ 
+ 
+
+ 
+ 
+ function submit(url,id){
+ 	var text= $('#'+id).val();
+ 	$.ajax({
+ 		  type: "POST",
+ 		  url:  getContextPath()+ url,
+ 		  beforeSend: function( xhr ) {
+ 			 $('#myModal').modal('show');
+ 			  },
+ 		  data: { "url": text,"id":id}
+ 		})
+ 		  .done(function( msg ) {
+ 			  location.reload();
+ 			  $('#myModal').modal('hide');
+ 		    console.log(msg );
+ 		  }).fail(function( msg ) {
+ 		    alert(msg );
+ 		  });
+ }
+        
  function getContextPath() {
 	   return ctx;
 	}

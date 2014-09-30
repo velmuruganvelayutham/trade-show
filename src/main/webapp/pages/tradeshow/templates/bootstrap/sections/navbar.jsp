@@ -27,13 +27,13 @@ response.setDateHeader ("Expires", -1);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">TOC Trade Shows </a>
+      <a class="navbar-brand" href="#"><img style="max-width:100px; margin-top: -7px;" src="<c:url value="/resources/image/logo.png"/>"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
+    
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-    
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibitors  <span class="caret"></span></a>
          <ul class="dropdown-menu" role="menu">
@@ -44,9 +44,8 @@ response.setDateHeader ("Expires", -1);
         </li>
       </ul>
       <form  class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input id="search" type="text" class="form-control" placeholder="Search" autocomplete="off" >
-          <ol class="mp_list"> </ol>
+        <div class="form-group" id="bloodhound">
+          <input id="search" type="text" class="typeahead" placeholder="Vendors">
         </div>
             <div class="form-group">
         <button type="submit" class="btn btn-default">Search
