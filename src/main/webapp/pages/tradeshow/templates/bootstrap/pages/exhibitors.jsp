@@ -33,11 +33,38 @@ response.setDateHeader ("Expires", -1);
 <div class="row">
 <div class="col-xs-2">
     <input id="filter" type="text" class="form-control" placeholder="Search ">
- </div>
+</div>
+
+<div class="btn-toolbar " role="toolbar">
+  <div  class="btn-group"><button id="addBtn"  class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="ADD" > Add </button> </div>
+  <div  class="btn-group"><button id="editBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="EDIT" > Edit </button> </div>
+  <div  class="btn-group"><button id="deleteBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="DELETE" > Delete </button> </div>
+  <div  class="btn-group"><button id="exportBtn" class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="Export CSV" > CSV Export </button> </div>
+</div>
+
+<!--    <div class="col-xs-2 col-md-1"> -->
+<!--     <div class="input-group"> -->
+<!--      <button  type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="ADD" > Insert </button> -->
+<!--     </div>/input-group -->
+<!--   </div>/.col-lg-2 -->
+  
+<!--    <div class="col-xs-2 col-md-1"> -->
+<!--     <div class="input-group"> -->
+<!--      <button  type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="EDIT" > Update </button> -->
+<!--     </div>/input-group -->
+<!--   </div>/.col-lg-2 -->
+<!--   <div class="col-xs-2 col-md-1"> -->
+<!--     <div class="input-group"> -->
+<!--      <button type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="REMOVE"> Remove </button> -->
+<!--     </div>/input-group -->
+<!--   </div>/.col-lg-2 -->
 </div>
 <table class="table table-responsive" data-filter="#filter" data-sort="true" data-page-size="5" >
       <thead>
         <tr>
+          <th>
+			<!-- <input type="checkbox"> -->
+          </th>
           <th>Show</th>
           <th  data-type="numeric" data-sort-initial="true" >Show Date</th>
           <th>Vendor Name</th>
@@ -55,6 +82,9 @@ response.setDateHeader ("Expires", -1);
       <c:forEach var="vendor" items="${vendors}">
       
        <tr>
+          <td>
+           <input id="checkbox" type="checkbox" value="${vendor.vendor_id}">
+          </td>
           <td><c:out value="${vendor.showName}"/></td>
           <td><c:out value="${vendor.showStartDate}"/></td>
           <td><c:out value="${vendor.vendorName}"/></td>
@@ -119,5 +149,80 @@ response.setDateHeader ("Expires", -1);
 </c:if>
 </div> 
 
-  
+  <!-- Modal -->
+<div class="modal fade" id="addNewVendor" tabindex="-1" role="dialog" aria-labelledby="addNewVendorLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="addNewVendorLabel">Add New Vendor Details.</h4>
+      </div>
+<!--       <div class="modal-body" id="editModal"> </div> -->
+      <div class="modal-body" >
+				<form  id="ajaxform" role="form" method="post" action="<c:url value="/exhibitors/add"> </c:url>">
+				<div class="row">
+					  <div class="col-xs-12 col-md-6"> 
+						  <div class="form-group">
+						    <label for="showName">Show</label>
+						    <input type="text" class="form-control" id="showName" placeholder="Enter Show Name">
+						  </div>
+						  <div class="form-group">
+						    <label for="showDate">Show Date</label>
+						    <input type="text" class="form-control" id="showDate" placeholder="Enter Show Date">
+						  </div>
+						  <div class="form-group">
+						    <label for="vendorName">Vendor Name</label>
+						    <input type="text" class="form-control" id="vendorName" placeholder="Enter Vendor Name">
+						  </div>
+						  <div class="form-group">
+						    <label for="boothNo">Booth No</label>
+						    <input type="text" class="form-control" id="boothNo" placeholder="Enter Booth No">
+						  </div>
+						  <div class="form-group">
+						    <label for="address">Address</label>
+						    <input type="text" class="form-control" id="address" placeholder="Enter Address">
+						  </div>
+						  <div class="form-group">
+						    <label for="phone">Phone</label>
+						    <input type="text" class="form-control" id="phone" placeholder="Enter Phone">
+						  </div>
+						
+				  </div>
+					  <div class="col-xs-12 col-md-6">
+					          <div class="form-group">
+							    <label for="Fax">Fax</label>
+							    <input type="text" class="form-control" id="fax" placeholder="Enter FAX">
+							  </div>
+					  		 <div class="form-group">
+						        <label for="email">email</label>
+						        <input type="text" class="form-control" id="email" placeholder="Enter Email">
+						  	  </div>
+							  <div class="form-group">
+							    <label for="website">website</label>
+							    <input type="text" class="form-control" id="website" placeholder="Enter website">
+							  </div>
+							  <div class="form-group">
+							    <label for="productCategory">Product Category</label>
+							    <input type="text" class="form-control" id="productCategory" placeholder="Enter Product Category">
+							  </div>
+							  <div class="form-group">
+							    <label for="products">Products</label>
+							    <input type="text" class="form-control" id="products" placeholder="Enter Products">
+							  </div>
+							  <div class="form-group">
+							    <label for="description">Description</label>
+							    <input type="text" class="form-control" id="description" placeholder="Enter Description">
+							  </div>
+					  
+					  </div>
+				</div>
+			</form>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="addFormBtn" type="button" class="btn btn-primary">Save</button> 
+      </div>
+    </div>
+  </div>
+</div>
 

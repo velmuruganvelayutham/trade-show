@@ -2,16 +2,22 @@ package com.tocgroup.tradeshow.controller;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.json.Json;
+import javax.json.JsonReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +35,7 @@ import com.tocgroup.tradeshow.service.VendorService;
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping("/exhibitors")
 public class ExhibitorsController {
 
 	@Autowired
@@ -40,7 +47,7 @@ public class ExhibitorsController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "/exhibitors", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String list(Locale locale, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int pageNo,
 			@RequestParam(value = "size", defaultValue = "8") int size) {
@@ -113,6 +120,27 @@ public class ExhibitorsController {
 
 		logger.info("Export CSV  is called ", locale);
 		model.addAttribute("message", "export");
+		return "exhibitors.";
+
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(Vendor vendor, BindingResult result, Model model) {
+		System.out.println("vendor is " + vendor);
+		model.addAttribute("message", "add");
+
+		return "exhibitors.";
+
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = {
+			"application/json", "application/xml",
+			"application/x-www-form-urlencoded" })
+	public String delete(@RequestBody String json, Model model) {
+		JsonReader jsonReader = Json.createReader(new StringReader(json));
+		System.out.println("map is " + jsonReader.readArray().size());
+		model.addAttribute("message", "add");
+
 		return "exhibitors.";
 
 	}

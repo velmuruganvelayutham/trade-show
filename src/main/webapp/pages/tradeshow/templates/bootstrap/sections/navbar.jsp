@@ -38,8 +38,8 @@ response.setDateHeader ("Expires", -1);
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibitors  <span class="caret"></span></a>
          <ul class="dropdown-menu" role="menu">
             <li><a href="<c:url value="/exhibitors"/>">List All </a></li>
-            <li><a href="<c:url value="/import"/>">Import </a></li>
-             <li><a href="<c:url value="/export"/>">Export </a></li>
+            <li><a href="<c:url value="/exhibitors/import"/>">Import </a></li>
+             <li><a href="<c:url value="/exhibitors/export"/>">Export </a></li>
          </ul>
         </li>
       </ul>

@@ -16,7 +16,7 @@
     <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
     
 	<!--bootstrap theme      -->
-    <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet">
+<%--     <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet"> --%>
     
      <!-- Jquery Form plugin -->
     <script src="<c:url value="/resources/js/jquery.form.js" />"></script>
@@ -30,16 +30,16 @@
 	<!--     lavish-bootstrap custom css  -->
 <%--     <link href="<c:url value="/resources/css/lavish-bootstrap.css" />" rel="stylesheet"> --%>
   <link href="<c:url value ="resources/css/footable.core.css?v=2-0-1"/>" rel="stylesheet" type="text/css"/>
-    <script src="<c:url value="resources/js/footable.js?v=2-0-1" />" type="text/javascript"></script>
-    <script src="<c:url value="resources/js/footable.sort.js?v=2-0-1"/>" type="text/javascript"></script> 
-    <script src="<c:url value="resources/js/footable.filter.js?v=2-0-1"/>" type="text/javascript"></script>
+  <script src="<c:url value="resources/js/footable.js?v=2-0-1" />" type="text/javascript"></script>
+  <script src="<c:url value="resources/js/footable.sort.js?v=2-0-1"/>" type="text/javascript"></script> 
+  <script src="<c:url value="resources/js/footable.filter.js?v=2-0-1"/>" type="text/javascript"></script>
 <%--    <script src="<c:url value="resources/js/footable.paginate.js?v=2-0-1"/>" type="text/javascript"></script> --%>
 <%--     <script src="<c:url value="resources/js/footable.bookmarkable.js?v=2-0-1"/>" type="text/javascript"></script> --%>
 <%--   <script src="<c:url value="resources/js/jquery.marcopolo.js" />" type="text/javascript"></script> --%>
      
 <!--     tradeshow custom css  -->
-    <link href="<c:url value="/resources/css/tradeshow.css" />" rel="stylesheet">
+  <link href="<c:url value="/resources/css/tradeshow.css" />" rel="stylesheet">
    
-     <!-- Custom Jquery -->
-    <script src="<c:url value="/resources/js/tradeshow.js" />"></script>
+     <!-- Custom javascript:  -->
+  <script src="<c:url value="/resources/js/tradeshow.js" />"></script>
     

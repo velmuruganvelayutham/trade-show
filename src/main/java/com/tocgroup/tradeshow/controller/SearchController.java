@@ -31,7 +31,7 @@ public class SearchController {
 		String name = "{\"first_name\": \"James\",\"last_name\": \"Butler\",\"profile_url\": \"/users/78749\"}";
 		String response = "[" + name + "," + name + "," + name + "," + name
 				+ "," + name + "," + name + "]";
-		logger.info("-- > Search controller is called -- > " + response);
+		logger.info("-- > Search controller is called -- > " + "");
 
 		model.addAttribute("message", "Search is coming soon !.");
 
