@@ -29,19 +29,18 @@ response.setDateHeader ("Expires", -1);
 	
 </c:if>
 <c:if test="${message == 'list'}">
-<div class="container">
 <div class="row">
 <div class="col-xs-2">
     <input id="filter" type="text" class="form-control" placeholder="Search ">
 </div>
 
 <div class="btn-toolbar " role="toolbar">
-  <div  class="btn-group"><button id="addBtn"  class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="ADD" > Add </button> </div>
-  <div  class="btn-group"><button id="editBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="EDIT" > Edit </button> </div>
-  <div  class="btn-group"><button id="deleteBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="DELETE" > Delete </button> </div>
-  <div  class="btn-group"><button id="exportBtn" class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="Export CSV" > CSV Export </button> </div>
-</div>
-
+  <div  class="btn-group"><button id="addBtn"  class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="ADD" > <span class="glyphicon glyphicon-plus"></span> Add </button> </div>
+  <div  class="btn-group"><button id="editBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="EDIT" > <span class="glyphicon glyphicon-pencil"></span> Edit </button> </div>
+  <div  class="btn-group"><button id="deleteBtn" class="btn btn-default disabled" type="button" data-toggle="tooltip" data-placement="left" title="DELETE" ><span class="glyphicon glyphicon-trash"></span> Delete </button> </div>
+  <div  class="btn-group"><button id="exportBtn" class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="Export CSV" > <span class="glyphicon glyphicon-export"></span> CSV Export </button> </div>
+  <div  class="btn-group"><button id="refreshBtn" class="btn btn-default " type="button" data-toggle="tooltip" data-placement="left" title="Refresh" > <span class="glyphicon glyphicon-refresh"></span> Refresh </button> </div>
+ 
 <!--    <div class="col-xs-2 col-md-1"> -->
 <!--     <div class="input-group"> -->
 <!--      <button  type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="ADD" > Insert </button> -->
@@ -59,6 +58,9 @@ response.setDateHeader ("Expires", -1);
 <!--     </div>/input-group -->
 <!--   </div>/.col-lg-2 -->
 </div>
+ <div id="statusbar" class="alert alert-success alert-dismissible" role="alert" style="display:none">
+	  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+ </div>
 <table class="table table-responsive" data-filter="#filter" data-sort="true" data-page-size="5" >
       <thead>
         <tr>
@@ -149,8 +151,29 @@ response.setDateHeader ("Expires", -1);
 </c:if>
 </div> 
 
-  <!-- Modal -->
-<div class="modal fade" id="addNewVendor" tabindex="-1" role="dialog" aria-labelledby="addNewVendorLabel" aria-hidden="true">
+<!-- loading modal for all the ajax calls. -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Extracting vendor details ...</h4>
+      </div>
+      <div class="modal-body">
+			<div  class="form-group" id="progress"> 
+				<img alt="progress image "  style="position: absolute; left: 30%; top: 50%; " src="<c:url value="/resources/image/progress.gif"></c:url>">
+			</div>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+<!--    <button type="button" class="btn btn-primary">Save</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal  for adding new Vendors -->
+<div class="modal fade" id="addNewVendor" tabindex="-1" role="dialog" aria-labelledby="addNewVendorLabel" aria-hidden="true" data-toggle="validator" >
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
@@ -159,12 +182,12 @@ response.setDateHeader ("Expires", -1);
       </div>
 <!--       <div class="modal-body" id="editModal"> </div> -->
       <div class="modal-body" >
-				<form  id="ajaxform" role="form" method="post" action="<c:url value="/exhibitors/add"> </c:url>">
+				<form  id="ajaxform" role="form" method="post"  action="<c:url value="/exhibitors/add"> </c:url>">
 				<div class="row">
 					  <div class="col-xs-12 col-md-6"> 
 						  <div class="form-group">
 						    <label for="showName">Show</label>
-						    <input type="text" class="form-control" id="showName" placeholder="Enter Show Name">
+						    <input type="text" class="form-control" id="showName" name ="showName" placeholder="Enter Show Name" >
 						  </div>
 						  <div class="form-group">
 						    <label for="showDate">Show Date</label>
@@ -172,11 +195,11 @@ response.setDateHeader ("Expires", -1);
 						  </div>
 						  <div class="form-group">
 						    <label for="vendorName">Vendor Name</label>
-						    <input type="text" class="form-control" id="vendorName" placeholder="Enter Vendor Name">
+						    <input type="text" class="form-control" id="vendorName" name="vendorName"  placeholder="Enter Vendor Name" required="required"> 
 						  </div>
 						  <div class="form-group">
 						    <label for="boothNo">Booth No</label>
-						    <input type="text" class="form-control" id="boothNo" placeholder="Enter Booth No">
+						    <input type="text" class="form-control" id="boothNo" name="boothNo" placeholder="Enter Booth No">
 						  </div>
 						  <div class="form-group">
 						    <label for="address">Address</label>
@@ -213,15 +236,28 @@ response.setDateHeader ("Expires", -1);
 							    <label for="description">Description</label>
 							    <input type="text" class="form-control" id="description" placeholder="Enter Description">
 							  </div>
-					  
+					  		
 					  </div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-6">
+						<div class="form-group"  align="center">
+							     <button id="saveFormBtn" type=submit class="btn btn-primary btn-lg" >Save</button> 
+					    </div>
+					</div>
+					<div class="col-xs-12 col-md-6" align="center">
+						<div class="form-group">
+								 <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</button>
+					    </div>
+				   </div>
+      			     
 				</div>
 			</form>	
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button id="addFormBtn" type="button" class="btn btn-primary">Save</button> 
-      </div>
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+<!--         <button id="addFormBtn" type="button" class="btn btn-primary">Save</button>  -->
+<!--       </div> -->
     </div>
   </div>
 </div>

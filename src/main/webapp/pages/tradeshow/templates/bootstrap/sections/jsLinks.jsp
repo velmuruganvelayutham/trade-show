@@ -9,12 +9,9 @@
     <script>var ctx = "${pageContext.request.contextPath}"</script>
       <!-- Jquery latest version -->
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-    
     <script src="<c:url value="/resources/templates/bootstrap/js/bootstrap.min.js" />"></script>
-     
     <!-- bootstrap  css -->
     <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
-    
 	<!--bootstrap theme      -->
 <%--     <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet"> --%>
     
@@ -26,7 +23,9 @@
     <!--   Bootstrap typeahead javascript  -->
     <script src="<c:url value="/resources/js/typeahead.bundle.js" />"></script>
     <script src="<c:url value="/resources/js/hogan.js" />"></script>
-    
+<!--     form validator -->
+    <script src="<c:url value="/resources/js/bootstrapValidator.js" />"></script>
+     <link href="<c:url value="/resources/css/bootstrapValidator.css" />" rel="stylesheet">
 	<!--     lavish-bootstrap custom css  -->
 <%--     <link href="<c:url value="/resources/css/lavish-bootstrap.css" />" rel="stylesheet"> --%>
   <link href="<c:url value ="resources/css/footable.core.css?v=2-0-1"/>" rel="stylesheet" type="text/css"/>

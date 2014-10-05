@@ -22,7 +22,7 @@ response.setDateHeader ("Expires", -1);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+    <link href="<c:url value="/resources/templates/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
 	<!-- Favicon icon -->
     <link href="<c:url value="/resources/image/blue-butterfly-152-181696.png" />" rel="shortcut icon">
     <!--     signin custom css  -->
@@ -41,13 +41,24 @@ response.setDateHeader ("Expires", -1);
 		  <strong>  <c:out value="${error}"></c:out> </strong> 
 		</div>
 		 </c:if>
-        <input name ="username" type="text" class="form-control" placeholder="Username" required autofocus>
-        <input name ="password" type="password" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+		 
+		   <div class="form-group">
+				    <label for="username">Username:</label>
+				    <input name ="username" type="text" class="form-control" placeholder="Username" required autofocus>
+		   </div>
+		    <div class="form-group">
+				    <label for="password">Password:</label>
+				    <input name ="password" type="password" class="form-control" placeholder="Password" required>
+		    </div>
+		       
+		     <div class="form-group">
+		    		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		    </div>
+		       
+	 </form>
+ </div>
+<%--      <jsp:include page="/pages/tradeshow/templates/bootstrap/sections/jsLinks.jsp" /> --%>
 
-    </div>
-     <jsp:include page="/pages/tradeshow/templates/bootstrap/sections/jsLinks.jsp" />
      	<tiles:insertAttribute name="footer" ignore="true"/>
 </body>
 </html>    

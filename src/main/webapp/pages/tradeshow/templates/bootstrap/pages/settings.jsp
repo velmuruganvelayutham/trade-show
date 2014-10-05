@@ -17,69 +17,120 @@ response.setDateHeader ("Expires", -1);
             
 <div id="settingsContainer" class="container">
 
-<c:forEach var="setting" items="${settings}" varStatus="status">
-<div class="row spacer">
-  <div class="col-xs-16 col-md-8">
-    <div class="input-group">
-      <span class="input-group-addon">
-        URL to Scrap
-      </span>
-      <input id="${setting.settings_id}" type="text" class="form-control" value="${setting.url}"> 
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button onclick='submit("/settings/edit","${setting.settings_id}")' type= "button" class="form-control" data-toggle="tooltip" data-placement="left" title="SAVE">  <span class="glyphicon glyphicon-floppy-save"></span>   </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button onclick='submit("/settings/extract","${setting.settings_id}")' type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SCRAP/EXTRACT"> <span class="glyphicon glyphicon-tower"></span>  </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button onclick='submit("/settings/edit","${setting.settings_id}")' type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="EDIT" ><span class="glyphicon glyphicon-pencil"></span> </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button onclick='submit("/settings/delete","${setting.settings_id}")' type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="REMOVE"> <span class="glyphicon glyphicon-remove"></span>  </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-</div><!-- /.row -->
-</c:forEach>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#scrap" role="tab" data-toggle="tab">Scrap</a></li>
+  <li><a href="#websites" role="tab" data-toggle="tab">Websites</a></li>
+  <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+</ul>
 
-<div class="row spacer">
-  <div class="col-xs-16 col-md-8">
-    <div class="input-group">
-      <span class="input-group-addon">
-        URL to Scrap
-      </span>
-      <input id="newURLText" type="text" class="form-control" value="${setting.url}" placeholder="Enter new URL here ! "> 
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button id="newURLSave" type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SAVE">  <span class="glyphicon glyphicon-floppy-save"></span>   </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SCRAP/EXTRACT"> <span class="glyphicon glyphicon-tower"></span>  </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="EDIT" ><span class="glyphicon glyphicon-pencil"></span> </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-  <div class="col-xs-2 col-md-1">
-    <div class="input-group">
-     <button type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="REMOVE"> <span class="glyphicon glyphicon-remove"></span>  </button>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-2 -->
-</div><!-- /.row -->
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="scrap">
+  		<div class="row spacer">
+  			 <div class="col-xs-8 col-md-4">
+				<div class="input-group">
+					 <span class="input-group-addon">
+				        Name:
+				     </span>
+					 <select class="form-control">
+					 <c:forEach var="option" items="${settings}">
+					 <c:set var="id" value="${option.settings_id}" > </c:set>
+					  <option><c:out value="${option.websiteName}"></c:out></option>
+					 </c:forEach>
+					</select>
+				</div>
+			</div>
+			 <div class="col-xs-4 col-md-2">
+				<button type="button" onclick='submit("/settings/extract","${id}")' class="btn btn-default" data-dismiss="modal">Execute</button>
+			 </div>
+		</div>
+  </div>
+  <div class="tab-pane" id="websites">
+				  <c:forEach var="setting" items="${settings}" varStatus="status">
+				<div class="row spacer">
+				  <div class="col-xs-4 col-md-2">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        Name:
+				      </span>
+				      <input id="name" type="text" class="form-control" value="${setting.websiteName}" placeholder="Enter Name here ! "> 
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-6 -->
+				  <div class="col-xs-16 col-md-8">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        URL:
+				      </span>
+				      <input id="${setting.settings_id}" type="text" class="form-control" value="${setting.url}"> 
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-6 -->
+<!-- 				  <div class="col-xs-2 col-md-1"> -->
+<!-- 				    <div class="input-group"> -->
+<%-- 				     <button onclick='submit("/settings/edit","${setting.settings_id}")' type= "button" class="form-control" data-toggle="tooltip" data-placement="left" title="SAVE">  <span class="glyphicon glyphicon-floppy-save"></span>   </button> --%>
+<!-- 				    </div>/input-group -->
+<!-- 				  </div>/.col-lg-2 -->
+<!-- 				  <div class="col-xs-2 col-md-1"> -->
+<!-- 				    <div class="input-group"> -->
+<%-- 				     <button onclick='submit("/settings/extract","${setting.settings_id}")' type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SCRAP/EXTRACT"> <span class="glyphicon glyphicon-tower"></span>  </button> --%>
+<!-- 				    </div>/input-group -->
+<!-- 				  </div>/.col-lg-2 -->
+				  <div class="col-xs-2 col-md-1">
+				    <div class="input-group">
+				     <button onclick='submit("/settings/edit","${setting.settings_id}")' type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="EDIT" ><span class="glyphicon glyphicon-pencil"></span> </button>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-2 -->
+				  <div class="col-xs-2 col-md-1">
+				    <div class="input-group">
+				     <button onclick='submit("/settings/delete","${setting.settings_id}")' type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="REMOVE"> <span class="glyphicon glyphicon-remove"></span>  </button>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-2 -->
+				</div><!-- /.row -->
+				</c:forEach>
+				
+				<div class="row spacer">
+				
+				  <div class="col-xs-4 col-md-2">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        Name:
+				      </span>
+				      <input id="name" type="text" class="form-control" value="${setting.websiteName}" placeholder="Enter Name here ! "> 
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-6 -->
+				  <div class="col-xs-16 col-md-8">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        URL:
+				      </span>
+				      <input id="newURLText" type="text" class="form-control" value="${setting.url}" placeholder="Enter new URL here ! "> 
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-6 -->
+<!-- 				  <div class="col-xs-2 col-md-1"> -->
+<!-- 				    <div class="input-group"> -->
+<%-- 				     <button id="newURLSave" type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SAVE">  <span class="glyphicon glyphicon-floppy-save"></span>   </button> --%>
+<!-- 				    </div>/input-group -->
+<!-- 				  </div>/.col-lg-2 -->
+<!-- 				  <div class="col-xs-2 col-md-1"> -->
+<!-- 				    <div class="input-group"> -->
+<%-- 				     <button type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="SCRAP/EXTRACT"> <span class="glyphicon glyphicon-tower"></span>  </button> --%>
+<!-- 				    </div>/input-group -->
+<!-- 				  </div>/.col-lg-2 -->
+				  <div class="col-xs-2 col-md-1">
+				    <div class="input-group">
+				     <button id="newURLSave" type="button" class="form-control"data-toggle="tooltip" data-placement="left" title="EDIT" ><span class="glyphicon glyphicon-pencil"></span> </button>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-2 -->
+				  <div class="col-xs-2 col-md-1">
+				    <div class="input-group">
+				     <button type="button" class="form-control" data-toggle="tooltip" data-placement="left" title="REMOVE"> <span class="glyphicon glyphicon-remove"></span>  </button>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-2 -->
+				</div><!-- /.row -->
+				  </div>
+	  <div class="tab-pane" id="history">This table will hold the status of the scraping process !. </div>
+	  </div>
 
 
 

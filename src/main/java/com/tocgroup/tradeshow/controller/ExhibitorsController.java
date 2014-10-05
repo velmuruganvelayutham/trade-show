@@ -9,6 +9,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -117,20 +120,18 @@ public class ExhibitorsController {
 
 	@RequestMapping(value = "/export", method = RequestMethod.GET)
 	public String exportCSV(Locale locale, Model model) {
-
 		logger.info("Export CSV  is called ", locale);
 		model.addAttribute("message", "export");
 		return "exhibitors.";
-
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(Vendor vendor, BindingResult result, Model model) {
+	public String add(@ModelAttribute Vendor vendor, BindingResult result,
+			Model model) {
+		vendorService.create(vendor);
 		System.out.println("vendor is " + vendor);
 		model.addAttribute("message", "add");
-
 		return "exhibitors.";
-
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = {
@@ -138,11 +139,15 @@ public class ExhibitorsController {
 			"application/x-www-form-urlencoded" })
 	public String delete(@RequestBody String json, Model model) {
 		JsonReader jsonReader = Json.createReader(new StringReader(json));
-		System.out.println("map is " + jsonReader.readArray().size());
-		model.addAttribute("message", "add");
-
+		JsonArray jsonArray = jsonReader.readArray();
+		int size = jsonArray.size();
+		System.out.println("Json input is " + jsonArray);
+		for (int i = 0; i < size; i++) {
+			String id = ((JsonObject) jsonArray.get(i)).getString("id");
+			Vendor vendor = vendorService.find(Long.valueOf(id));
+			vendorService.delete(vendor);
+			System.out.println("deleted successfully " + id);
+		}
 		return "exhibitors.";
-
 	}
-
 }

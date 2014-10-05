@@ -102,5 +102,5 @@
     </beans:bean>
     <tx:annotation-driven transaction-manager="txManager" />
     <beans:bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	
+    
 </beans:beans>
