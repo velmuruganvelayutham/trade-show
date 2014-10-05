@@ -33,7 +33,7 @@ response.setDateHeader ("Expires", -1);
  <div class="container">
 		
 	 <a class="navbar-brand" href="#"><img align="middle"  class="" src="<c:url value="/resources/image/logo.png"/>"></a>
-      <form class="form-signin" role="form" method="post" action="<c:url value="/signin"/>">
+      <form class="form-signin" role="form" method="post" action="<c:url value="/j_spring_security_check"/>">
         <h2 class="form-signin-heading">sign in</h2>
          <c:if test="${not empty error}">
          <div class="alert alert-warning alert-dismissible" role="alert" align="center">
@@ -44,11 +44,11 @@ response.setDateHeader ("Expires", -1);
 		 
 		   <div class="form-group">
 				    <label for="username">Username:</label>
-				    <input name ="username" type="text" class="form-control" placeholder="Username" required autofocus>
+				    <input name ="j_username" type="text" class="form-control" placeholder="Username" required autofocus>
 		   </div>
 		    <div class="form-group">
 				    <label for="password">Password:</label>
-				    <input name ="password" type="password" class="form-control" placeholder="Password" required>
+				    <input name ="j_password" type="password" class="form-control" placeholder="Password" required>
 		    </div>
 		       
 		     <div class="form-group">

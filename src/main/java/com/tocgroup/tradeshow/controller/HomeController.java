@@ -25,12 +25,22 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	public String home(
+			Locale locale,
+			@RequestParam(value = "login_error", required = false) String error,
+			Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-
-		model.addAttribute("error", "");
+		if (null == error)
+			model.addAttribute("error", "");
+		else
+			model.addAttribute("error", "Invalid username or password");
 		return "login.";
+	}
+
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	public String invalidUsername(Model model) {
+		return "exhibitors.";
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
