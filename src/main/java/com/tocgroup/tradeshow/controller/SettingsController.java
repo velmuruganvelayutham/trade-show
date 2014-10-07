@@ -4,10 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,15 +71,18 @@ public class SettingsController {
 	public @ResponseBody String save(
 			@RequestParam MultiValueMap<String, String> map,
 			@PathVariable String action) throws FileNotFoundException {
-		String url = map.get("url").get(0);
+		List<String> urlList = map.get("url");
+		String url = "";
+		if (null != urlList && urlList.size() > 0)
+			url = urlList.get(0);
 
-		if (action.equalsIgnoreCase("save")) {
+		if (action.equalsIgnoreCase("add")) {
 			Settings settings = new Settings();
 			settings.setUrl(url);
 			settings.setWebsiteName(url);
 			settingsService.create(settings);
 		} else if (action.equalsIgnoreCase("edit")) {
-			String id = map.get("id").get(0);
+			String id = map.get("settings_id").get(0);
 			Settings setting = settingsService.find(Long.valueOf(id));
 			setting.setUrl(url);
 			settingsService.update(setting);
@@ -110,6 +120,23 @@ public class SettingsController {
 		}
 		return "saved successully";
 
+	}
+
+	@RequestMapping(value = "/settings/delete", method = RequestMethod.POST, consumes = {
+			"application/json", "application/xml",
+			"application/x-www-form-urlencoded" })
+	public String delete(@RequestBody String json, Model model) {
+		JsonReader jsonReader = Json.createReader(new StringReader(json));
+		JsonArray jsonArray = jsonReader.readArray();
+		int size = jsonArray.size();
+		System.out.println("Json input is " + jsonArray);
+		for (int i = 0; i < size; i++) {
+			String id = ((JsonObject) jsonArray.get(i)).getString("id");
+			Settings setting = settingsService.find(Long.valueOf(id));
+			settingsService.delete(setting);
+			System.out.println("deleted successfully " + id);
+		}
+		return "exhibitors.";
 	}
 
 }

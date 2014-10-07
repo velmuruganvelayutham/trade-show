@@ -61,7 +61,7 @@ response.setDateHeader ("Expires", -1);
  <div id="statusbar" class="alert alert-success alert-dismissible" role="alert" style="display:none">
 	  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
  </div>
-<table class="table table-responsive" data-filter="#filter" data-sort="true" data-page-size="5" >
+<table class="table table-bordered table-striped table-hover" data-filter="#filter" data-sort="true" data-page-size="5" >
       <thead>
         <tr>
           <th>
@@ -182,7 +182,11 @@ response.setDateHeader ("Expires", -1);
       </div>
 <!--       <div class="modal-body" id="editModal"> </div> -->
       <div class="modal-body" >
-				<form  id="ajaxform" role="form" method="post"  action="<c:url value="/exhibitors/add"> </c:url>">
+				<form  id="ajaxform" role="form" method="post"  action="<c:url value="/exhibitors/add"> </c:url>" 
+				data-bv-message="This value is not valid"
+    			data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+   				data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+    			data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
 				<div class="row">
 					  <div class="col-xs-12 col-md-6"> 
 					  	  <div class="form-group">
@@ -190,7 +194,9 @@ response.setDateHeader ("Expires", -1);
 						  </div>
 						  <div class="form-group">
 						    <label for="showName">Show</label>
-						    <input type="text" class="form-control" id="showName" name ="showName" placeholder="Enter Show Name" >
+						    <input type="text" class="form-control" id="showName" name ="showName" placeholder="Enter Show Name" 
+						    data-bv-notempty="true"
+                			data-bv-notempty-message="The show name is required and cannot be empty" >
 						  </div>
 						  <div class="form-group">
 						    <label for="showDate">Show Date</label>
@@ -198,11 +204,15 @@ response.setDateHeader ("Expires", -1);
 						  </div>
 						  <div class="form-group">
 						    <label for="vendorName">Vendor Name</label>
-						    <input type="text" class="form-control" id="vendorName" name="vendorName"  placeholder="Enter Vendor Name" required="required"> 
+						    <input type="text" class="form-control" id="vendorName" name="vendorName"  placeholder="Enter Vendor Name" required="required" 
+						    data-bv-notempty="true"
+                			data-bv-notempty-message="The vendor name is required and cannot be empty"> 
 						  </div>
 						  <div class="form-group">
 						    <label for="boothNo">Booth No</label>
-						    <input type="text" class="form-control" id="boothNo" name="boothNo" placeholder="Enter Booth No">
+						    <input type="text" class="form-control" id="boothNo" name="boothNo" placeholder="Enter Booth No" 
+						    data-bv-notempty="true"
+                			data-bv-notempty-message="The boothno is required and cannot be empty">
 						  </div>
 						  <div class="form-group">
 						    <label for="address">Address</label>

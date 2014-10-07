@@ -140,18 +140,21 @@
             	if(n!==0){
 	               	 $("#deleteBtn").removeClass('disabled');
 	               	 $("#editBtn").removeClass('disabled');
+	               	 $("#settingEditBtn").removeClass('disabled');
+	               	 $("#settingDeleteBtn").removeClass('disabled');
             	 }
             	else{
                    	 $("#deleteBtn").addClass('disabled');
                    	 $("#editBtn").addClass('disabled');
+                   	 $("#settingEditBtn").addClass('disabled');
+                   	 $("#settingDeleteBtn").addClass('disabled');
             	}
              });
             
             // click of Add button , show a modal with id "addNewVendor"
             $('#addBtn').click(function(){
-            
+            	$('#ajaxform').attr('action',getContextPath()+'/exhibitors/add');
             	$('#addNewVendor').modal('show');
-            	
             });
             
             // click of Add button , show a modal with id "addNewVendor"
@@ -183,6 +186,11 @@
             // click of Delete button , show conform dialog and if yes, delete it.
             $('#deleteBtn').click(function(){
             	console.log('delete button is clicked');
+            	$('#ajaxform').attr('action',getContextPath()+'/exhibitors/delete');
+            	deleteRecord();
+            });
+            
+            function deleteRecord(){
             	var selected=$( "input:checked" );
             	var parent=selected.parent().parent();
             	console.log('selected rows: '+ selected);
@@ -194,13 +202,14 @@
             	console.log('ids: '+ ids);
             	 $.ajax(
                          {
-                             url : "exhibitors/delete",
+                             //url : "exhibitors/delete",
+                        	 url:$('#ajaxform').attr('action'),
                              type: "POST",
                              contentType:"application/json",
                              data :  JSON.stringify(ids),
                              beforeSend: function(){
                             	 $('#statusbar').empty();
-                            	 $("#myModalLabel").html("<font color='black'>"+ "Deleting Vendor !. "  +"</font>");
+                            	 $("#myModalLabel").html("<font color='black'>"+ "Deleting !. "  +"</font>");
                             	 $("#myModal").modal('show');
                              },
                              success:function(data, textStatus, jqXHR) 
@@ -208,7 +217,7 @@
                             	 parent.remove();
                             	 $("#myModal").modal('hide');
                 			     $('#deleteBtn').addClass('disabled');
-                			     $('#statusbar').append(' <div align="middle" > <strong>vendor deleted successfully!. </strong> </div>').show();
+                			     $('#statusbar').append(' <div align="middle" > <strong> deleted successfully!. </strong> </div>').show();
                              	 console.log(textStatus);
                              },
                              error: function(jqXHR, textStatus, errorThrown) 
@@ -216,8 +225,33 @@
                              	alert(errorThrown);     
                              }
                          });
+            }
+
+            // click of Add button , show a modal with id "addNewVendor"
+            $('#settingAddBtn').click(function(){
+            	$('#ajaxform').attr('action',getContextPath()+'/settings/add');
+            	$('#addNewSetting').modal('show');
+            	
             });
             
+            // click of Add button , show a modal with id "addNewVendor"
+            $('#settingEditBtn').click(function(){
+            	var selected=$( "input:checked" );
+            	var id=selected[0].value;
+            	$('#settingid').val(id);
+            	$('#websiteName').val($('#websiteName'+id).text());
+            	$('#url').val($('#url'+id).text());
+            	$('#ajaxform').attr('action',getContextPath()+'/settings/edit');
+            	$('#addNewSetting').modal('show');
+            	
+            });
+            
+            // click of Delete button , show conform dialog and if yes, delete it.
+            $('#settingDeleteBtn').click(function(){
+            	console.log('delete button is clicked');
+            	$('#ajaxform').attr('action',getContextPath()+'/settings/delete');
+            	deleteRecord();
+            });
             
           //callback handler for form submit
 //            $("#ajaxform").submit(function(e)
@@ -256,58 +290,7 @@
             
             
 //            Bootstrap validator for add vendor modal form.
-            $('form').bootstrapValidator({
-                message: 'This value is not valid',
-                onSuccess: function(e) {
-                  // alert('success');
-                },
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh',
-                    required: 'glyphicon glyphicon-asterisk',
-                },
-                fields: {
-                    showName: {
-                        message: 'The show name is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The showname is required and cannot be empty'
-                            },
-                            stringLength: {
-                                min: 6,
-                                max: 30,
-                                message: 'The showname must be more than 6 and less than 30 characters long'
-                            }
-                            
-                        }
-                    },
-                    vendorName: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The vendorname is required and cannot be empty'
-                            },
-                            stringLength: {
-                                min: 6,
-                                max: 30,
-                                message: 'The vendorname must be more than 6 and less than 30 characters long'
-                            }                            
-                        }
-                    },
-                    boothNo: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The boothno is required and cannot be empty'
-                            },
-                            stringLength: {
-                                min: 1,
-                                max: 30,
-                                message: 'The boothno must be more than 1 and less than 30 characters long'
-                            }                            
-                        }
-                    }
-                }
-            }).on('success.form.bv', function(e) {
+            $('form').bootstrapValidator().on('success.form.bv', function(e) {
                 // Prevent form submission
                 e.preventDefault();
               
@@ -317,11 +300,6 @@
                 // Get the BootstrapValidator instance
                 var bv = $form.data('bootstrapValidator');
 
-                // Use Ajax to submit form data
-//                $.post($form.attr('action'), $form.serialize(), function(data,textStatus,jqXHR) {
-//                  alert(textStatus);
-//                }, 'json');
-                
                 $.ajax({
                           url : $form.attr('action'),
                           type: "POST",
@@ -335,6 +313,7 @@
                               //data: return data from server
                           	 console.log(textStatus);
                           	 $('#addNewVendor').modal('hide');
+                          	 $('#addNewSetting').modal('hide');
                           	 $('#statusbar').append(' <div align="middle" > <strong> done successfully!. </strong> </div>').show();
                           	 
                           },
@@ -358,9 +337,8 @@
  		  data: { "url": text,"id":id}
  		})
  		  .done(function( msg ) {
- 			  location.reload();
- 			  $('#myModal').modal('hide');
-// 			  $('#settingsContainer').prepend('<div class="alert alert-success alert-dismissible" role="alert" align="center"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>'+ msg + '</strong></div>');
+ 			 $('#myModal').modal('hide');
+ 			 $('#extractStatusbar').append(' <div align="middle" > <strong> scraping done successfully!. </strong> </div>').show();
  		    console.log(msg );
  		  }).fail(function( msg ) {
  		    alert(msg );
