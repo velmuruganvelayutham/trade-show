@@ -72,6 +72,7 @@ public class SearchController {
 		if (!tempDir.exists()) {
 			tempDir.mkdirs();
 		}
+
 		String solrServer = tempDir.getAbsolutePath();
 		System.out.println("solr server" + solrServer);
 		File solrXml = new File(new File(solrServer), "solr.xml");
