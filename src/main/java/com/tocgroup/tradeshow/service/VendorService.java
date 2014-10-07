@@ -15,6 +15,8 @@ public interface VendorService {
 
 	public void create(Vendor vendor);
 
+	public void update(Vendor vendor);
+
 	public void delete(Vendor vendor);
 
 	public Long count();

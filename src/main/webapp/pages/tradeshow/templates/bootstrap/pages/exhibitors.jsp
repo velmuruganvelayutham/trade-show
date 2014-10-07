@@ -87,17 +87,17 @@ response.setDateHeader ("Expires", -1);
           <td>
            <input id="checkbox" type="checkbox" value="${vendor.vendor_id}">
           </td>
-          <td><c:out value="${vendor.showName}"/></td>
-          <td><c:out value="${vendor.showStartDate}"/></td>
-          <td><c:out value="${vendor.vendorName}"/></td>
-          <td><c:out value="${vendor.boothNo}"/></td>
-          <td><c:out value="${vendor.address}"/></td>
-          <td><c:out value="${vendor.phone}"/></td>
-          <td><c:out value="${vendor.website}"/></td>
-          <td><c:out value="${vendor.fax}"/></td>
-          <td><c:out value="${vendor.email}"/></td>
-          <td><c:out value=""/></td>
-          <td><c:out value=""/></td>
+          <td id="showName${vendor.vendor_id}"><c:out value="${vendor.showName}"/></td>
+          <td id="showDate${vendor.vendor_id}"><c:out value="${vendor.showStartDate}"/></td>
+          <td id="vendorName${vendor.vendor_id}"><c:out value="${vendor.vendorName}"/></td>
+          <td id="boothNo${vendor.vendor_id}"><c:out value="${vendor.boothNo}"/></td>
+          <td id="address${vendor.vendor_id}"><c:out value="${vendor.address}"/></td>
+          <td id="phone${vendor.vendor_id}"><c:out value="${vendor.phone}"/></td>
+          <td id="website${vendor.vendor_id}"><c:out value="${vendor.website}"/></td>
+          <td id="fax${vendor.vendor_id}"><c:out value="${vendor.fax}"/></td>
+          <td id="email${vendor.vendor_id}"><c:out value="${vendor.email}"/></td>
+          <td id="products${vendor.vendor_id}"><c:out value=""/></td>
+          <td id="productCategory${vendor.vendor_id}"><c:out value=""/></td>
         </tr>
       </c:forEach>
       </tbody>
@@ -185,6 +185,9 @@ response.setDateHeader ("Expires", -1);
 				<form  id="ajaxform" role="form" method="post"  action="<c:url value="/exhibitors/add"> </c:url>">
 				<div class="row">
 					  <div class="col-xs-12 col-md-6"> 
+					  	  <div class="form-group">
+						    <input type="hidden" class="form-control" id="vendorid" name ="vendor_id" >
+						  </div>
 						  <div class="form-group">
 						    <label for="showName">Show</label>
 						    <input type="text" class="form-control" id="showName" name ="showName" placeholder="Enter Show Name" >

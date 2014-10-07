@@ -149,6 +149,28 @@
             
             // click of Add button , show a modal with id "addNewVendor"
             $('#addBtn').click(function(){
+            
+            	$('#addNewVendor').modal('show');
+            	
+            });
+            
+            // click of Add button , show a modal with id "addNewVendor"
+            $('#editBtn').click(function(){
+            	var selected=$( "input:checked" );
+            	var id=selected[0].value;
+            	$('#vendorid').val(id);
+            	$('#showName').val($('#showName'+id).text());
+            	$('#showDate').val($('#showDate'+id).text());
+            	$('#vendorName').val($('#vendorName'+id).text());
+            	$('#boothNo').val($('#boothNo'+id).text());
+            	$('#address').val($('#address'+id).text());
+            	$('#phone').val($('#phone'+id).text());
+            	$('#fax').val($('#fax'+id).text());
+            	$('#email').val($('#email'+id).text());
+            	$('#website').val($('#email'+id).text());
+            	$('#productCategory').val($('#productCategory'+id).text());
+            	$('#products').val($('#products'+id).html());
+            	$('#ajaxform').attr('action',getContextPath()+'/exhibitors/edit');
             	$('#addNewVendor').modal('show');
             	
             });
@@ -313,7 +335,7 @@
                               //data: return data from server
                           	 console.log(textStatus);
                           	 $('#addNewVendor').modal('hide');
-                          	 $('#statusbar').append(' <div align="middle" > <strong>vendor added successfully!. </strong> </div>').show();
+                          	 $('#statusbar').append(' <div align="middle" > <strong> done successfully!. </strong> </div>').show();
                           	 
                           },
                           error: function(jqXHR, textStatus, errorThrown) 
@@ -321,9 +343,6 @@
                           	alert(errorThrown);     
                           }
                       });
-                
-                
-                
             });
        }); 
 

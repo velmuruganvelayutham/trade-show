@@ -51,4 +51,9 @@ public class VendorServiceImpl implements VendorService {
 
 		return vendorDao.count();
 	}
+
+	@Override
+	public void update(Vendor vendor) {
+		vendorDao.update(vendor);
+	}
 }

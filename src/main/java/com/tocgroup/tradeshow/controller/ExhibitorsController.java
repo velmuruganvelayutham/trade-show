@@ -134,6 +134,16 @@ public class ExhibitorsController {
 		return "exhibitors.";
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String edit(@ModelAttribute Vendor vendor, BindingResult result,
+			Model model) {
+		Vendor find = vendorService.find(vendor.getVendor_id());
+		vendorService.update(find);
+		System.out.println("vendor is " + find);
+		model.addAttribute("message", "edit");
+		return "exhibitors.";
+	}
+
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = {
 			"application/json", "application/xml",
 			"application/x-www-form-urlencoded" })
