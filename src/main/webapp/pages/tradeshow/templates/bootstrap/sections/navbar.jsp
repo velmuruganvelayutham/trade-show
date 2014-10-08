@@ -9,6 +9,7 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 
 <%@page contentType="text/html"%>
@@ -57,9 +58,12 @@ response.setDateHeader ("Expires", -1);
         <li class="active"><a href="<c:url value="/notifications"/>">Alerts
             <span class="glyphicon glyphicon-bell"></span> </a>
         </li>
-              <li class="active"><a  href="<c:url value="/settings"/>">Settings
-            <span class="glyphicon glyphicon-cog"></span> </a>
-        </li>
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+	         <li class="active"><a  href="<c:url value="/settings"/>">Settings
+	            <span class="glyphicon glyphicon-cog"></span> </a>
+	        </li>
+        </sec:authorize>
+             
               <li class="active"><a  href="<c:url value="/profile"/>">Profile
             <span class="glyphicon glyphicon-user"></span> </a>
         </li>

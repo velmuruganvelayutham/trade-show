@@ -9,6 +9,7 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
  
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
@@ -20,7 +21,9 @@ response.setDateHeader ("Expires", -1);
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="active"><a href="#scrap" role="tab" data-toggle="tab">Scrap</a></li>
+  <sec:authorize access="hasRole('ROLE_ADMIN')"> 
   <li><a href="#websites" role="tab" data-toggle="tab">Websites</a></li>
+  </sec:authorize>
   <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
 </ul>
 
