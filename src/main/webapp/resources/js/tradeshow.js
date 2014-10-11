@@ -323,15 +323,34 @@
                           }
                       });
             });
+            
+            
+            //reset the form in the model whenever is opened. 
+            
+            $('#addNewSetting').on('shown.bs.modal', function() {
+                $('#ajaxform').bootstrapValidator('resetForm', true);
+            });
+            
+            $('#addNewVendor').on('shown.bs.modal', function() {
+                $('#ajaxform').bootstrapValidator('resetForm', true);
+            });
+            
+            $("#urlDropDown").change(function(){
+                var id= $('option:selected', this).attr('data-urlid');
+                $('#hiddenUrlId').val(id);
+            });
+            
        }); 
 
 
  function submit(url,id){
- 	var text= $('#'+id).val();
+ 	var text = $('#'+id).val();
+ 	var id=$('#hiddenUrlId').val();
  	$.ajax({
  		  type: "POST",
  		  url:  getContextPath()+ url,
  		  beforeSend: function( xhr ) {
+ 			 $('#extractStatusbar').empty();
  			 $('#myModal').modal('show');
  			  },
  		  data: { "url": text,"id":id}

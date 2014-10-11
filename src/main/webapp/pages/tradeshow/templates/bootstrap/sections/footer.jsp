@@ -13,7 +13,8 @@ response.setDateHeader ("Expires", -1);
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
-	  <!-- footer -->
-            <footer>
-                
-            </footer>
+<!-- 	 <div id="footer"> -->
+<!--       <div class="container"> -->
+<!--         <p class="muted credit"> TocGroup Inc. @2014 </p> -->
+<!--       </div> -->
+<!--     </div> -->

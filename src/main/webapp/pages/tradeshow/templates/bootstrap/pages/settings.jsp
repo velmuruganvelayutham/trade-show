@@ -40,10 +40,11 @@ response.setDateHeader ("Expires", -1);
 					 <span class="input-group-addon">
 				        Name:
 				     </span>
-					 <select class="form-control">
+				     <input type="hidden" id="hiddenUrlId" value="${option.settings_id}">
+					 <select id="urlDropDown" class="form-control">
 					 <c:forEach var="option" items="${settings}">
 					 <c:set var="id" value="${option.settings_id}" > </c:set>
-					  <option><c:out value="${option.websiteName}"></c:out></option>
+					  <option data-urlid="${id}"><c:out value="${option.websiteName}"></c:out></option>
 					 </c:forEach>
 					</select>
 				</div>
@@ -152,9 +153,10 @@ response.setDateHeader ("Expires", -1);
 						  </div>
 						  <div class="form-group">
 						    <label for="url">URL</label>
-						    <input type="text" class="form-control" id="url" name="url" placeholder="Enter URL" 
+						    <input type="url" class="form-control" id="url" name="url" placeholder="Enter URL" 
 						    data-bv-notempty="true"
-               				data-bv-notempty-message="The URL is required and cannot be empty">
+               				data-bv-notempty-message="The URL is required and cannot be empty"
+               				data-bv-uri-message="Enter a Valid URL ">
 						  </div>
 				  </div>
 					 
