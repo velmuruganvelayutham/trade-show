@@ -240,12 +240,12 @@ public class SettingsController {
 			CSVReader reader = new CSVReader(inputStreamReader);
 			List<Vendor> vendors = csvToBean.parse(beanStrategy, reader);
 			for (Vendor vendor : vendors) {
-				System.out.println(vendor);
+				logger.info(vendor.toString());
 				vendorService.create(vendor);
 			}
 			logger.info("-- CSV imported completed --   " + file.getName());
 		} catch (Exception e) {
-
+			logger.error("error: while extracting vendor information--> ", e);
 		}
 	}
 
@@ -275,7 +275,7 @@ public class SettingsController {
 		CSVReader reader = new CSVReader(inputStreamReader);
 		List<Vendor> vendors = csvToBean.parse(beanStrategy, reader);
 		for (Vendor vendor : vendors) {
-			System.out.println(vendor);
+			logger.info(vendor.toString());
 			vendorService.create(vendor);
 		}
 		logger.info("-- CSV imported completed --   " + file.getName());
@@ -288,12 +288,12 @@ public class SettingsController {
 		JsonReader jsonReader = Json.createReader(new StringReader(json));
 		JsonArray jsonArray = jsonReader.readArray();
 		int size = jsonArray.size();
-		System.out.println("Json input is " + jsonArray);
+		logger.info("Json input is " + jsonArray);
 		for (int i = 0; i < size; i++) {
 			String id = ((JsonObject) jsonArray.get(i)).getString("id");
 			Settings setting = settingsService.find(Long.valueOf(id));
 			settingsService.delete(setting);
-			System.out.println("deleted successfully " + id);
+			logger.info("deleted successfully " + id);
 		}
 		return "exhibitors.";
 	}

@@ -40,7 +40,7 @@ public class SearchController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody String home(Model model, @RequestParam("q") String q) {
-		String name = "{\"first_name\": \"James\",\"last_name\": \"Butler\",\"profile_url\": \"/users/78749\"}";
+		String name = "{\"first_name\": \"will be implemented soon !...\",\"last_name\": \"Butler\",\"profile_url\": \"/users/78749\"}";
 		String response = "[" + name + "," + name + "," + name + "," + name
 				+ "," + name + "," + name + "]";
 		logger.info("-- > Search controller is called -- > " + "");
