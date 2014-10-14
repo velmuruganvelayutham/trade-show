@@ -31,7 +31,6 @@ public class Vendor implements Serializable {
 	private Date showEndDate;
 	@Column(nullable = false)
 	private String vendorName;
-	@Column(nullable = false)
 	private String boothNo;
 	@Column
 	private String address;
@@ -39,7 +38,7 @@ public class Vendor implements Serializable {
 	private String phone;
 	@Column
 	private String website;
-	@Column
+	@Column(length = 10000)
 	private String email;
 	@Column
 	private String fax;

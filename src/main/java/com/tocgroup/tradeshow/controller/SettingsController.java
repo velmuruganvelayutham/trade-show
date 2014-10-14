@@ -91,19 +91,26 @@ public class SettingsController {
 			Settings settings = new Settings();
 			settings.setUrl(url);
 			settings.setWebsiteName(map.get("websiteName").get(0));
+			logger.info(" record created successfully with ID --> "
+					+ settings.toString());
 			settingsService.create(settings);
 		} else if (action.equalsIgnoreCase("edit")) {
 			String id = map.get("settings_id").get(0);
 			Settings setting = settingsService.find(Long.valueOf(id));
+			setting.setWebsiteName(map.get("websiteName").get(0));
 			setting.setUrl(url);
 			settingsService.update(setting);
+			logger.info(" record updated successfully with ID --> " + id);
 		} else if (action.equalsIgnoreCase("delete")) {
 			String id = map.get("id").get(0);
 			Settings setting = settingsService.find(Long.valueOf(id));
 			settingsService.delete(setting);
+			logger.info(" record deleted successfully with ID --> " + id);
 		} else {
 			String id = map.get("id").get(0);
 			Settings setting = settingsService.find(Long.valueOf(id));
+			logger.info("setting is found for extraction : --> " + setting);
+
 			if (StringUtils.equalsIgnoreCase(
 					"http://toyfall14.mapyourshow.com", setting.getUrl())) {
 				importVendorsFromToyfall14();
@@ -153,6 +160,7 @@ public class SettingsController {
 
 			} else if (StringUtils.equalsIgnoreCase("http://events.expotec.us",
 					setting.getUrl())) {
+
 				importVendorsFromExpotec();
 
 			} else if (StringUtils.equalsIgnoreCase(
@@ -217,6 +225,8 @@ public class SettingsController {
 	 */
 	private void importProductsFromCSV(Scraper scraper) {
 		try {
+			String tempdir = System.getProperty("java.io.tmpdir");
+			logger.info("using temporary folder --> " + tempdir);
 			File file = scraper.extract();
 			logger.info("-- CSV imporing is started --   " + file.getName());
 			HeaderColumnNameTranslateMappingStrategy<Vendor> beanStrategy = new HeaderColumnNameTranslateMappingStrategy<Vendor>();

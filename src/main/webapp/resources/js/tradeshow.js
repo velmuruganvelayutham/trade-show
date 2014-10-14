@@ -327,11 +327,11 @@
             
             //reset the form in the model whenever is opened. 
             
-            $('#addNewSetting').on('shown.bs.modal', function() {
+            $('#addNewSetting').on('hide.bs.modal', function() {
                 $('#ajaxform').bootstrapValidator('resetForm', true);
             });
             
-            $('#addNewVendor').on('shown.bs.modal', function() {
+            $('#addNewVendor').on('hide.bs.modal', function() {
                 $('#ajaxform').bootstrapValidator('resetForm', true);
             });
             
