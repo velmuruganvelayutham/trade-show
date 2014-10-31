@@ -13,11 +13,34 @@ response.setDateHeader ("Expires", -1);
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <div class="container"> 
+
+<c:if test="${message == 'uploadDropbox'}">
+	<form id="uploadFileToDropbox" role="form" method="post" action="uploadDropbox" enctype="multipart/form-data">
+		<div class="form-group"> 
+		<strong><label for="csvInputFile">UPLOAD FILES TO DROPBOX</label> </strong>
+		    <input type="file" id="csvInputFile" name="dropbox-file">
+		    <p class="help-block"> Upload the files from your computer.</p>
+		</div>
+		<div  class="form-group" id="progress" style="display: none"> 
+		<img alt="progress image " src="<c:url value="/resources/image/progress.gif"></c:url>">
+		</div>
+		<div  class="form-group" id="message"> 
+		 <button type="submit" class="btn btn-default">Submit</button>
+		 </div>
+		 <div  class="form-group" > 
+		 <c:if test="${not empty dropboxLink}">
+		 <span class="label label-success"><c:out value="${dropboxLink}"></c:out> </span>
+		 <a href="${dropboxLink}" target="_blank">Click here to Open a dropbox folder: </a>
+		 </c:if>
+		 </div>
+	</form>
+	
+</c:if>
 <c:if test="${message == 'import'}">
-	<form id="importCSV" role="form" method="post" action="import/csv" enctype=”multipart/form-data >
+	<form id="importCSV" role="form" method="post" action="import/csv" enctype="multipart/form-data">
 		<div class="form-group"> 
 		<label for="csvInputFile">CSV File</label>
-		    <input type="file" id="csvInputFile" name="file">
+		    <input type="file" id="csvInputFile" name="csv-file">
 		    <p class="help-block"> Upload the CSV file from your computer.</p>
 		</div>
 		<div  class="form-group" id="progress" style="display: none"> 

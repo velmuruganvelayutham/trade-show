@@ -41,6 +41,7 @@ response.setDateHeader ("Expires", -1);
             <li><a href="<c:url value="/exhibitors"/>">List All </a></li>
             <li><a href="<c:url value="/exhibitors/import"/>">Import </a></li>
              <li><a href="<c:url value="/exhibitors/export"/>">Export </a></li>
+              <li><a href="<c:url value="/exhibitors/uploadDropbox"/>"> Upload Files to Dropbox </a></li>
          </ul>
         </li>
       </ul>

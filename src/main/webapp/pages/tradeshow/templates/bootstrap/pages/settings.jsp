@@ -25,6 +25,7 @@ response.setDateHeader ("Expires", -1);
   <li><a href="#websites" role="tab" data-toggle="tab">Websites</a></li>
   </sec:authorize>
   <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+   <li><a href="#dropbox-api-keys" role="tab" data-toggle="tab">Dropbox API Keys</a></li>
 </ul>
 
 
@@ -94,6 +95,35 @@ response.setDateHeader ("Expires", -1);
     </div> <!-- table container ends here -->
  </div>
 	  <div class="tab-pane" id="history">This table will hold the status of the scraping process !. </div>
+	  <div class="tab-pane" id="dropbox-api-keys"> 
+	  
+	  <div class="container">
+  <div class="row row spacer">
+  
+  <form class="form-horizontal" role="form">
+ <div class="form-group">
+ <label for="inputEmail1" class="col-lg-2 control-label">App key</label>
+ <div class="col-lg-10">
+   <input type="text" class="form-control" id="inputEmail1" placeholder="App key" value="gw4w14qy8129lpi">
+ </div>
+ </div>
+ <div class="form-group">
+ <label for="inputPassword1" class="col-lg-2 control-label">App Secret</label>
+ <div class="col-lg-10">
+   <input type="text" class="form-control" id="inputPassword1" placeholder="App Secret" value="hpycgtegwghz183">
+ </div>
+ </div>
+ 
+ <div class="form-group">
+ <label for="inputPassword1" class="col-lg-2 control-label">Access Token</label>
+ <div class="col-lg-10">
+   <input type="text" class="form-control" id="inputPassword1" placeholder="Access Token" value="vmWxWONh_7gAAAAAAAAAE3egnyeHlXJ3EEHBLo8rFv6FU3IGil1Ps9zwGpNlpE5Z">
+ </div>
+ </div>
+</form>
+  </div></div>
+	  
+	  </div>
 	  </div>
 
 

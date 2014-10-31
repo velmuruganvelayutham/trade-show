@@ -326,6 +326,11 @@
 			    <artifactId>javax.json</artifactId>
 			    <version>1.0.4</version>
 			</dependency>
+		<dependency>
+			  <groupId>com.dropbox.core</groupId>
+			  <artifactId>dropbox-core-sdk</artifactId>
+			  <version>1.7</version>
+		</dependency>
 		
 		<!-- Test -->
 		<dependency>

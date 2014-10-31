@@ -1,5 +1,6 @@
  $(document).ready(function() { 
 	 var options = { 
+			    contentType:"multipart/form-data",
 			    beforeSend: function() 
 			    {
 			   	 $("#progress").show();
@@ -25,8 +26,18 @@
 			    }
 			}; 
 	 
-            // bind 'myForm' and provide a simple callback function 
+	  // bind to the form's submit event 
+	    $('#importCSV').submit(function() { 
+	        // inside event callbacks 'this' is the DOM element so we first 
+	        // wrap it in a jQuery object and then invoke ajaxSubmit 
+	    	 // bind 'myForm' and provide a simple callback function 
             $('#importCSV').ajaxForm(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    });
+	 
+	      
             
             $(function () {
      		   $('table').footable({ bookmarkable: { enabled: true }}).bind({
@@ -340,6 +351,10 @@
                 $('#hiddenUrlId').val(id);
             });
             
+            $.fn.typeahead.Constructor.prototype.blur = function() {
+                var that = this;
+                setTimeout(function () { that.hide() }, 250);
+            };
        }); 
 
 
